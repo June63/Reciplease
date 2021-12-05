@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		49B84B892759088900465CAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B882759088900465CAE /* AppDelegate.swift */; };
 		49B84B8B2759088900465CAE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B8A2759088900465CAE /* SceneDelegate.swift */; };
-		49B84B8D2759088900465CAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B8C2759088900465CAE /* ViewController.swift */; };
+		49B84B8D2759088900465CAE /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B8C2759088900465CAE /* CoursesViewController.swift */; };
 		49B84B902759088900465CAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B84B8E2759088900465CAE /* Main.storyboard */; };
 		49B84B922759088A00465CAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49B84B912759088A00465CAE /* Assets.xcassets */; };
 		49B84B952759088A00465CAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B84B932759088A00465CAE /* LaunchScreen.storyboard */; };
 		49B84BA72759098400465CAE /* RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BA62759098400465CAE /* RecipleaseTests.swift */; };
+		49B84BAE275921CA00465CAE /* CustomRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BAD275921CA00465CAE /* CustomRecipeCell.swift */; };
+		49B84BB02759224800465CAE /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BAF2759224800465CAE /* FavoriteViewController.swift */; };
+		49B84BB22759227200465CAE /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BB12759227200465CAE /* RecipeViewController.swift */; };
+		49B84BB42759238F00465CAE /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BB32759238F00465CAE /* ResultsViewController.swift */; };
+		49B84BB6275923B600465CAE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BB5275923B600465CAE /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,13 +35,18 @@
 		49B84B852759088900465CAE /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B84B882759088900465CAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49B84B8A2759088900465CAE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		49B84B8C2759088900465CAE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		49B84B8C2759088900465CAE /* CoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
 		49B84B8F2759088900465CAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49B84B912759088A00465CAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49B84B942759088A00465CAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49B84B962759088A00465CAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B84BA42759098400465CAE /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B84BA62759098400465CAE /* RecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseTests.swift; sourceTree = "<group>"; };
+		49B84BAD275921CA00465CAE /* CustomRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecipeCell.swift; sourceTree = "<group>"; };
+		49B84BAF2759224800465CAE /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		49B84BB12759227200465CAE /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		49B84BB32759238F00465CAE /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		49B84BB5275923B600465CAE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +116,12 @@
 		49B84B9E275908BA00465CAE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				49B84B8C2759088900465CAE /* ViewController.swift */,
+				49B84B8C2759088900465CAE /* CoursesViewController.swift */,
+				49B84BAD275921CA00465CAE /* CustomRecipeCell.swift */,
+				49B84BAF2759224800465CAE /* FavoriteViewController.swift */,
+				49B84BB12759227200465CAE /* RecipeViewController.swift */,
+				49B84BB32759238F00465CAE /* ResultsViewController.swift */,
+				49B84BB5275923B600465CAE /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -230,9 +245,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49B84B8D2759088900465CAE /* ViewController.swift in Sources */,
+				49B84BAE275921CA00465CAE /* CustomRecipeCell.swift in Sources */,
+				49B84B8D2759088900465CAE /* CoursesViewController.swift in Sources */,
+				49B84BB6275923B600465CAE /* SearchViewController.swift in Sources */,
+				49B84BB22759227200465CAE /* RecipeViewController.swift in Sources */,
+				49B84BB42759238F00465CAE /* ResultsViewController.swift in Sources */,
 				49B84B892759088900465CAE /* AppDelegate.swift in Sources */,
 				49B84B8B2759088900465CAE /* SceneDelegate.swift in Sources */,
+				49B84BB02759224800465CAE /* FavoriteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
