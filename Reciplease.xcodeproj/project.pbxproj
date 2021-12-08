@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49A358BE275CBC3D00F6691B /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A358BD275CBC3D00F6691B /* Recipe.swift */; };
+		49A358C2275CBD3400F6691B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A358C1275CBD3400F6691B /* Constants.swift */; };
+		49A358C4275CBD5100F6691B /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A358C3275CBD5100F6691B /* Course.swift */; };
 		49B84B892759088900465CAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B882759088900465CAE /* AppDelegate.swift */; };
 		49B84B8B2759088900465CAE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B8A2759088900465CAE /* SceneDelegate.swift */; };
 		49B84B8D2759088900465CAE /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84B8C2759088900465CAE /* CoursesViewController.swift */; };
@@ -19,6 +22,10 @@
 		49B84BB22759227200465CAE /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BB12759227200465CAE /* RecipeViewController.swift */; };
 		49B84BB42759238F00465CAE /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BB32759238F00465CAE /* ResultsViewController.swift */; };
 		49B84BB6275923B600465CAE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B84BB5275923B600465CAE /* SearchViewController.swift */; };
+		49BF105B2760DCFA00882320 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BF105A2760DCFA00882320 /* CoreDataStack.swift */; };
+		49BF105D2760DD3C00882320 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BF105C2760DD3C00882320 /* Alert.swift */; };
+		49BF105F2760DD9B00882320 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BF105E2760DD9B00882320 /* Favorite.swift */; };
+		49BF10612760DDD300882320 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BF10602760DDD300882320 /* RequestService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49A358BD275CBC3D00F6691B /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		49A358C1275CBD3400F6691B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		49A358C3275CBD5100F6691B /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		49B84B852759088900465CAE /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B84B882759088900465CAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49B84B8A2759088900465CAE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +57,10 @@
 		49B84BB12759227200465CAE /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		49B84BB32759238F00465CAE /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		49B84BB5275923B600465CAE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		49BF105A2760DCFA00882320 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		49BF105C2760DD3C00882320 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		49BF105E2760DD9B00882320 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		49BF10602760DDD300882320 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +114,13 @@
 		49B84B9C2759089700465CAE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49BF105C2760DD3C00882320 /* Alert.swift */,
+				49A358C1275CBD3400F6691B /* Constants.swift */,
+				49A358C3275CBD5100F6691B /* Course.swift */,
+				49BF105E2760DD9B00882320 /* Favorite.swift */,
+				49A358BD275CBC3D00F6691B /* Recipe.swift */,
+				49BF105A2760DCFA00882320 /* CoreDataStack.swift */,
+				49BF10602760DDD300882320 /* RequestService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -246,12 +267,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				49B84BAE275921CA00465CAE /* CustomRecipeCell.swift in Sources */,
+				49BF105F2760DD9B00882320 /* Favorite.swift in Sources */,
+				49A358C4275CBD5100F6691B /* Course.swift in Sources */,
+				49A358C2275CBD3400F6691B /* Constants.swift in Sources */,
+				49BF105B2760DCFA00882320 /* CoreDataStack.swift in Sources */,
 				49B84B8D2759088900465CAE /* CoursesViewController.swift in Sources */,
 				49B84BB6275923B600465CAE /* SearchViewController.swift in Sources */,
 				49B84BB22759227200465CAE /* RecipeViewController.swift in Sources */,
 				49B84BB42759238F00465CAE /* ResultsViewController.swift in Sources */,
 				49B84B892759088900465CAE /* AppDelegate.swift in Sources */,
+				49A358BE275CBC3D00F6691B /* Recipe.swift in Sources */,
+				49BF105D2760DD3C00882320 /* Alert.swift in Sources */,
 				49B84B8B2759088900465CAE /* SceneDelegate.swift in Sources */,
+				49BF10612760DDD300882320 /* RequestService.swift in Sources */,
 				49B84BB02759224800465CAE /* FavoriteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
