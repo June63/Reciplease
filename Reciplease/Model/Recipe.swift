@@ -2,61 +2,38 @@
 //  Recipe.swift
 //  Reciplease
 //
-//  Created by Léa Kieffer on 05/12/2021.
+//  Created by Léa Kieffer on 13/12/2021.
 //
 
 import Foundation
-import CoreData
 
+//model for ViewController
 class Recipe {
-    let id: String
-    let recipeName: String
-    let rating: Int16
-    let totalTimeInSeconds: Int32?
-    let ingredients: String
-    let imageSmall: URL?
-    let course: String
 
-    // Recipe details
-    var imageBig: URL?
-    var ingredientLines: [String]?
-    var totalTime: String?
-    var numberOfServings: Int?
-    var recipeURL: URL?
-
-    init(id: String, name: String, imageSmall: URL?, rating: Int16, ingredients: String, totalTimeInSeconds: Int32, course: String) {
-        self.id = id
-        self.recipeName = name
-        self.imageSmall = imageSmall
-        self.rating = rating
-        self.ingredients = ingredients
-        self.totalTimeInSeconds = totalTimeInSeconds
-        self.course = course
-    }
-
-    // MARK: - CORE DATA ACTIONS
-    func addToFavorites(coreDataStack: CoreDataStack) -> Bool {
-        let favorite = NSEntityDescription.insertNewObject(forEntityName: "Favorite", into: coreDataStack.viewContext) as! Favorite
-        favorite.id = id
-        favorite.name = recipeName
-        favorite.rating = rating
-        favorite.imageSmall = imageSmall
-        favorite.ingredients = ingredients
-        favorite.totalTimeInSeconds = totalTimeInSeconds ?? 0
-        favorite.course = course
-        return coreDataStack.saveContext()
-    }
-
-    func deleteFromFavorites(coreDataStack: CoreDataStack) -> Bool {
-        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        request.predicate = NSPredicate(format: "id = %@", id)
-
-        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
-            return false
+        var ingredientList = [String]()
+        var listRecipe = [RecipePlease]()
+        var ingredientListIsEmpty: Bool {
+            return ingredientList.isEmpty == true
         }
 
-        coreDataStack.viewContext.delete(recipes[0])
-        return coreDataStack.saveContext()
-    }
-}
+        func reorderIngredientInArray(ingredient: String) {
+            let string = ingredient
+            let arrayIngredient = string.split(regex: ",")
+            print(arrayIngredient.enumerated())
+            for ingredient in 0...arrayIngredient.count - 1 {
+                ingredientList.append(arrayIngredient[ingredient])
+            }
+        }
 
+        func createListIngredientForRequest() -> String? {
+            if ingredientListIsEmpty {
+                print("pas d'ingredient, donc pas de request")
+                return nil
+            }
+            var ingredientRequest = ""
+            for ingredient in 0...ingredientList.count - 1 {
+                ingredientRequest += ingredientList[ingredient] + ","
+            }
+            return ingredientRequest
+        }
+    }
