@@ -6,34 +6,53 @@
 //
 
 import Foundation
+import CoreData
 
-//model for ViewController
 class Recipe {
-
-        var ingredientList = [String]()
-        var listRecipe = [RecipePlease]()
-        var ingredientListIsEmpty: Bool {
-            return ingredientList.isEmpty == true
-        }
-
-        func reorderIngredientInArray(ingredient: String) {
-            let string = ingredient
-            let arrayIngredient = string.split(regex: ",")
-            print(arrayIngredient.enumerated())
-            for ingredient in 0...arrayIngredient.count - 1 {
-                ingredientList.append(arrayIngredient[ingredient])
-            }
-        }
-
-        func createListIngredientForRequest() -> String? {
-            if ingredientListIsEmpty {
-                print("pas d'ingredient, donc pas de request")
-                return nil
-            }
-            var ingredientRequest = ""
-            for ingredient in 0...ingredientList.count - 1 {
-                ingredientRequest += ingredientList[ingredient] + ","
-            }
-            return ingredientRequest
+    let directions: String
+    let duration: Int
+    let id: String
+    private(set) var imageData: Data?
+    let imageUrl: String
+    let calories: Double
+    let ingredients: String
+    let query: String
+    let title: String
+    var isFavorite: Bool {
+        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id)
+        guard let response = try? CoreDataStack.viewContext.fetch(request) else { return false }
+        if response.count > 0 {
+            return true
+        } else {
+            return false
         }
     }
+
+    init(directions: String, duration: Int, id: String, image: String, calories: Double, ingredients: [String], title: String) {
+        self.directions = directions
+        self.duration = duration
+        self.id = id
+        self.imageUrl = image
+        self.calories = calories
+        self.ingredients = ingredients.joined(separator: "\n- ")
+        self.query = SettingService.ingredients.joined(separator: ", ")
+        self.title = title
+    }
+
+    init(favorite: Favorite) {
+        self.directions = favorite.directions!
+        self.duration = Int(favorite.duration)
+        self.id = favorite.id!
+        self.imageUrl = favorite.imageUrl!
+        self.calories = favorite.calories
+        self.ingredients = favorite.ingredients!
+        self.query = favorite.query!
+        self.title = favorite.title!
+        self.imageData = favorite.imageData
+    }
+
+    func setImageData(data: Data?) {
+        self.imageData = data
+    }
+}

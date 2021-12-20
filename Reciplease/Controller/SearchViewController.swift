@@ -9,138 +9,110 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
-    // MARK: - OUTLETS
-    @IBOutlet weak var ingredientsTableView: UITableView!
-    @IBOutlet weak var newIngredient: UITextField!
-    @IBOutlet weak var ingredientButton: UIButton!
-    @IBOutlet weak var selectCourseButton: UIButton!
-    @IBOutlet var buttons: [UIButton]!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var timeSwitch: UISwitch!
-    @IBOutlet weak var timeSlider: UISlider!
-    @IBOutlet weak var timeSliderStackView: UIStackView!
+    // MARK: - IBOutlet Properties
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak var ingredientTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    // MARK: - PROPERTIES
-    var ingredients = [String]()
-    var maxTotalTimeInSeconds:Int32 = 0 {
-        willSet {
-            timeLabel.text = newValue.convertToTimeString()
+    // MARK: - Properties
+    var webService = RecipeWebService()
+    var errorMessage: String? {
+        didSet {
+            let alert = UIAlertController(title: "Error !", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
-
-    // MARK: - METHODS
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-    }
-
-    private func setup() {
-        for button in buttons {
-            button.layer.cornerRadius = 5
-        }
-        maxTotalTimeInSeconds = Int32(timeSlider.value)
-        timeSliderStackView.isHidden = true
-    }
-
-
-
-    private func showClearButton() {
-        if ingredientButton.tag == 1 {
-            ingredientButton.tag = 0
-            UIView.transition(with: ingredientButton, duration: 0.5, options: .transitionFlipFromRight, animations: {
-                self.ingredientButton.setImage(UIImage(named: "Button_clear_white"), for: .normal)
-            }, completion: nil)
-        }
-    }
-
-    private func showAddButton() {
-        if ingredientButton.tag == 0 {
-            ingredientButton.tag = 1
-            UIView.transition(with: ingredientButton, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-                self.ingredientButton.setImage(UIImage(named: "Button_add_white"), for: .normal)
-            }, completion: nil)
-        }
-    }
-
-    // MARK: - ACTIONS
-    // clear list or add ingredient to it depending on button tag
-    @IBAction func ingredientButtonPressed(_ sender: UIButton!) {
-        if ingredientButton.tag == 0 {
-            ingredients.removeAll()
-            ingredientsTableView.reloadData()
-        } else {
-            if newIngredient.text != "" {
-                ingredients.insert(newIngredient.text!, at: 0)
-                ingredientsTableView.reloadData()
-                newIngredient.text = ""
-                dismissKeyboard(UITapGestureRecognizer())
+    var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                searchButton.isEnabled = false
+                searchButton.setTitle("", for: .disabled)
+                activityIndicator.startAnimating()
+                activityIndicator.isHidden = false
+            } else {
+                searchButton.isEnabled = true
+                searchButton.setTitle("Search for recipes", for: .normal)
+                activityIndicator.stopAnimating()
+                activityIndicator.isHidden = true
             }
         }
     }
 
-    @IBAction func timeSwitchValueChanged(_ sender: UISwitch) {
-        timeSliderStackView.isHidden = sender.isOn ? false : true
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        isLoading = false
+        refreshIngredientsList()
+        addButton.layer.cornerRadius = 3
+        clearButton.layer.cornerRadius = 3
+        searchButton.layer.cornerRadius = 3
     }
 
-    @IBAction func timeSliderValueChanged(_ sender: UISlider) {
-        maxTotalTimeInSeconds = Int32(sender.value)
-    }
-}
-
-// MARK: -
-extension SearchViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+    // MARK: - IBAction Methods
+    @IBAction func pressAddButton(_ sender: UIButton) {
+        addIngredient()
+        ingredientTextField.resignFirstResponder()
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-        cell.textLabel?.text = ingredients[indexPath.row]
-        return cell
+    @IBAction func pressClearButton(_ sender: UIButton) {
+        SettingService.ingredients = []
+        refreshIngredientsList()
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            ingredients.remove(at: indexPath.row)
-            tableView.reloadData()
+    @IBAction func pressSearchButton(_ sender: UIButton) {
+        isLoading = true
+        webService.fetchRecipes(keywords: SettingService.ingredients) { (recipes) in
+            self.isLoading = false
+            guard let recipes = recipes else {
+                self.errorMessage = "Search could not be performed."
+                return
+            }
+            guard recipes.count > 0 else {
+                self.errorMessage = "No recipe was found."
+                return
+            }
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            if let recipeListView = storyboard.instantiateViewController(identifier: "RecipeList") as? RecipeTableViewController {
+                recipeListView.recipes = recipes
+                self.navigationController?.pushViewController(recipeListView, animated: true)
+            }
         }
     }
+
+    @IBAction func hideKeyboard(_ sender: Any) {
+        ingredientTextField.resignFirstResponder()
+    }
 }
 
-// MARK: -
+// MARK: - Private Methods
+private extension SearchViewController {
+    func refreshIngredientsList() {
+        ingredientsTextView.text = ""
+        for ingredient in SettingService.ingredients {
+            ingredientsTextView.text! += "- \(ingredient) \n"
+        }
+    }
+
+    func addIngredient() {
+        guard let ingredient = ingredientTextField.text, ingredient != "" else {
+            errorMessage = "You must enter an ingredient before adding it to the list."
+            return
+        }
+        SettingService.ingredients.append(ingredient)
+        ingredientTextField.text = nil
+        refreshIngredientsList()
+    }
+}
+
+// MARK: - UITextFieldDelegate
 extension SearchViewController: UITextFieldDelegate {
-    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        newIngredient.resignFirstResponder()
-        newIngredient.text == "" ? showClearButton() : showAddButton()
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        showAddButton()
-    }
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        ingredientButtonPressed(UIButton())
+        addIngredient()
+        ingredientTextField.resignFirstResponder()
         return true
     }
-
 }
-
-// MARK: -
-extension Int32 {
-    func convertToTimeString() -> String {
-        let hours = self / 3600
-        let minutes = (self % 3600) / 60
-        let timeString = hours > 0 ? "\(hours) hr \(minutes) min" : "\(minutes) min"
-
-        return timeString
-    }
-}
-
-// MARK: -
-extension SearchViewController: CoursesViewControllerDelegate {
-    func setCourseButtonTitle(with title: String) {
-        selectCourseButton.setTitle(title, for: .normal)
-    }
-}
-
