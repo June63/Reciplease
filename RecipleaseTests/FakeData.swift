@@ -1,16 +1,14 @@
 //
-//  FakeResponseData.swift
+//  FakeData.swift
 //  RecipleaseTests
 //
-//  Created by Léa Kieffer on 15/12/2021.
+//  Created by Léa Kieffer on 02/12/2021.
 //
 
 @testable import Reciplease
 import Foundation
 
-class FakeResponseData {
-    
-    static let incorrectData = "incorrect data".data(using: .utf8)!
+class FakeData {
     
     static var recipeData: Data {
         let bundle = Bundle(for: self)
@@ -18,11 +16,17 @@ class FakeResponseData {
         return try! Data(contentsOf: url!)
     }
       
-    static var results: Reciplease {
+    private static var results: Reciplease {
         return try! JSONDecoder().decode(Reciplease.self, from: recipeData)
     }
     
     static var recipes: [Recipe] {
         return results.recipes
+    }
+    
+    static let incorrectData = "incorrect data".data(using: .utf8)!
+    
+    enum FakeError: Error, Equatable {
+        case apiError
     }
 }
