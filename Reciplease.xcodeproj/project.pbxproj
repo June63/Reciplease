@@ -127,10 +127,10 @@
 			isa = PBXGroup;
 			children = (
 				49B84B9C2759089700465CAE /* Model */,
+				4996C73127745E69004E4F2B /* Constants.swift */,
 				49B84B9D275908A500465CAE /* View */,
 				49B84B9E275908BA00465CAE /* Controller */,
 				49B84B9F275908FB00465CAE /* Suporting Files */,
-				4996C73127745E69004E4F2B /* Constants.swift */,
 				49B84B962759088A00465CAE /* Info.plist */,
 			);
 			path = Reciplease;
