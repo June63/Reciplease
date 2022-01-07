@@ -57,7 +57,6 @@ class DatabaseServiceTests: XCTestCase {
         }
         
         XCTAssertEqual(loadedRecipes.count, 10)
-        //XCTAssertEqual(loadedRecipes, recipes) // pk c'est pas ordonner
     }
     
     func testRecipeDeleted() {

@@ -58,14 +58,9 @@ class DatabaseService {
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [titlePredicate, urlPredicate])
         
         let managedObject = try viewContext.fetch(fetchRequest)
-        // for entity in managedObject {
-        //     viewContext.delete(entity)
-        // }
         managedObject.forEach { (entity) in
             viewContext.delete(entity)
         }
-        //managedObject.forEach { viewContext.delete($0)}
-        
         do {
             try viewContext.save()
             print("Recipe \(recipe.title) deleted")
